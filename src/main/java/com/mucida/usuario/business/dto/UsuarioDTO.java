@@ -1,4 +1,4 @@
-package com.mucida.usuario.infrastructure.business.dto;
+package com.mucida.usuario.business.dto;
 
 import lombok.*;
 
