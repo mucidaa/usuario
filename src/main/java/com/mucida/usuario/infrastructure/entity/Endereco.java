@@ -1,16 +1,14 @@
 package com.mucida.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tb_adress")
+@Entity(name = "tb_endereco")
+@Builder
 public class Endereco {
 
     @Id
