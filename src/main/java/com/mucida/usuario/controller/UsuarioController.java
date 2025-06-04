@@ -39,7 +39,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Usuario> findByEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UsuarioDTO> findByEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(usuarioService.findByEmail(email));
     }
 
@@ -49,5 +49,9 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> updateUsuario(@RequestBody UsuarioDTO usuarioDTO, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.updateUsuario(usuarioDTO, token));
+    }
 
 }

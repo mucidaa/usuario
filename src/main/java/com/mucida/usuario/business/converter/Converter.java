@@ -23,6 +23,17 @@ public class Converter {
                 .build();
     }
 
+    public Usuario updateUsuario(UsuarioDTO usuarioDTO, Usuario usuario) {
+        return Usuario.builder()
+                .id(usuario.getId())
+                .nome(usuarioDTO.getNome() != null ? usuarioDTO.getNome() : usuario.getNome())
+                .email(usuarioDTO.getEmail() != null ? usuarioDTO.getEmail() : usuario.getNome())
+                .senha(usuarioDTO.getSenha() != null ? usuarioDTO.getSenha() : usuario.getSenha())
+                .enderecos(usuario.getEnderecos())
+                .telefones(usuario.getTelefones())
+                .build();
+    }
+
     public List<Endereco> toEnderecoList(List<EnderecoDTO> enderecoDTOList) {
         return enderecoDTOList
                 .stream()
