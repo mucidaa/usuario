@@ -1,17 +1,14 @@
 package com.mucida.usuario.infrastructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tb_phone")
+@Entity(name = "tb_telefone")
+@Builder
 public class Telefone {
 
     @Id
@@ -19,9 +16,8 @@ public class Telefone {
     private Long id;
 
     @Column(length = 10)
-    private String number;
+    private String numero;
 
-    @Column(name = "country_code", length = 2)
-    @JsonAlias("country_code")
-    private String countyCode;
+    @Column(length = 2)
+    private String ddd;
 }
