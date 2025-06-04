@@ -1,8 +1,8 @@
-package com.mucida.usuario.infrastructure.business.converter;
+package com.mucida.usuario.business.converter;
 
-import com.mucida.usuario.infrastructure.business.dto.EnderecoDTO;
-import com.mucida.usuario.infrastructure.business.dto.TelefoneDTO;
-import com.mucida.usuario.infrastructure.business.dto.UsuarioDTO;
+import com.mucida.usuario.business.dto.EnderecoDTO;
+import com.mucida.usuario.business.dto.TelefoneDTO;
+import com.mucida.usuario.business.dto.UsuarioDTO;
 import com.mucida.usuario.infrastructure.entity.Endereco;
 import com.mucida.usuario.infrastructure.entity.Telefone;
 import com.mucida.usuario.infrastructure.entity.Usuario;
