@@ -1,5 +1,6 @@
 package com.mucida.usuario.infrastructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,8 @@ public class Telefone {
 
     @Column(length = 2)
     private String ddd;
+
+    @Column(name = "usuario_id")
+    @JsonAlias("usuario_id")
+    private Long usuarioId;
 }

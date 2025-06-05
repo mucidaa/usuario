@@ -52,6 +52,19 @@ public class Converter {
                 .build();
     }
 
+    public Endereco toEndereco(EnderecoDTO enderecoDTO, Long id) {
+        return Endereco.builder()
+                .usuarioId(id)
+                .cep(enderecoDTO.getCep())
+                .estado(enderecoDTO.getEstado())
+                .cidade(enderecoDTO.getCidade())
+                .rua(enderecoDTO.getRua())
+                .numero(enderecoDTO.getNumero())
+                .complemento(enderecoDTO.getComplemento())
+                .build();
+    }
+
+
     public Endereco updateEndereco(EnderecoDTO dto, Endereco entity) {
         return Endereco.builder()
                 .id(entity.getId())
@@ -73,6 +86,14 @@ public class Converter {
 
     public Telefone toTelefone(TelefoneDTO telefoneDTO) {
         return Telefone.builder()
+                .ddd(telefoneDTO.getDdd())
+                .numero(telefoneDTO.getNumero())
+                .build();
+    }
+
+    public Telefone toTelefone(TelefoneDTO telefoneDTO, Long id) {
+        return Telefone.builder()
+                .usuarioId(id)
                 .ddd(telefoneDTO.getDdd())
                 .numero(telefoneDTO.getNumero())
                 .build();

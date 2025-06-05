@@ -1,5 +1,6 @@
 package com.mucida.usuario.infrastructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +33,8 @@ public class Endereco {
 
     @Column(length = 9)
     private String cep;
+
+    @Column(name = "usuario_id")
+    @JsonAlias("usuario_id")
+    private Long usuarioId;
 }

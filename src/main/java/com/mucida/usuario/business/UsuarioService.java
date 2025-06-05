@@ -58,7 +58,6 @@ public class UsuarioService {
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException("Email não encontrado: " + email);
         }
-
     }
 
     public void deleteByEmail(String email) {
