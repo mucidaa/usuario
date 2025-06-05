@@ -19,4 +19,9 @@ public class TelefoneController {
     public ResponseEntity<TelefoneDTO> updateTelefone(@RequestBody TelefoneDTO telefoneDTO, @RequestParam Long id) {
         return ResponseEntity.ok(telefoneService.updateTelefone(id, telefoneDTO));
     }
+
+    @PostMapping
+    public ResponseEntity<TelefoneDTO> saveTelefone(@RequestBody TelefoneDTO telefoneDTO, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(telefoneService.saveTelefone(telefoneDTO, token));
+    }
 }
