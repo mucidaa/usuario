@@ -1,10 +1,7 @@
 package com.mucida.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,7 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tb_user")
+@Entity(name = "tb_usuario")
+@Builder
 public class Usuario implements UserDetails {
 
     @Id
@@ -23,7 +21,7 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @Column(length = 100)
-    private String name;
+    private String nome;
 
     @Column(length = 100)
     private String email;
@@ -32,11 +30,11 @@ public class Usuario implements UserDetails {
     private String senha;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Endereco> enderecos;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Telefone> telefones;
 
     @Override
