@@ -1,11 +1,15 @@
 package com.mucida.usuario.business;
 
 import com.mucida.usuario.business.converter.Converter;
+import com.mucida.usuario.business.dto.EnderecoDTO;
 import com.mucida.usuario.business.dto.UsuarioDTO;
+import com.mucida.usuario.infrastructure.entity.Endereco;
 import com.mucida.usuario.infrastructure.entity.Usuario;
 import com.mucida.usuario.infrastructure.exceptions.ConflictException;
 import com.mucida.usuario.infrastructure.exceptions.ResourceNotFoundException;
+import com.mucida.usuario.infrastructure.repository.EnderecoRepository;
 import com.mucida.usuario.infrastructure.repository.UsuarioRepository;
+import com.mucida.usuario.infrastructure.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +19,13 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final Converter converter;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, Converter converter, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, Converter converter, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, EnderecoRepository enderecoRepository) {
         this.usuarioRepository = usuarioRepository;
         this.converter = converter;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public UsuarioDTO saveUsuario(UsuarioDTO usuarioDTO) {
@@ -32,10 +38,27 @@ public class UsuarioService {
         }
     }
 
-    public Usuario findByEmail(String email) {
-        return usuarioRepository.findByEmail(email).orElseThrow(
-                () -> new ResourceNotFoundException("Email não encontrado: " + email)
-        );
+    public UsuarioDTO updateUsuario(UsuarioDTO usuarioDTO, String token) {
+        String email = jwtUtil.extractUsername(token.substring(7));
+        usuarioDTO.setSenha(usuarioDTO.getSenha() != null ? passwordEncoder.encode(usuarioDTO.getSenha()) : null);
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email não encontrado: " + email));
+
+        usuario = converter.updateUsuario(usuarioDTO, usuario);
+        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+
+        return converter.toUsuarioDTO(usuario);
+    }
+
+    public UsuarioDTO findByEmail(String email) {
+        try {
+            return converter.toUsuarioDTO(usuarioRepository.findByEmail(email).orElseThrow(
+                    () -> new ResourceNotFoundException("Email não encontrado: " + email)
+            ));
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Email não encontrado: " + email);
+        }
+
     }
 
     public void deleteByEmail(String email) {
