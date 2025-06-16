@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/usuario/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/endereco/**").permitAll()
                         .requestMatchers("/usuario/**").authenticated()
                         .anyRequest().authenticated()
                 )
